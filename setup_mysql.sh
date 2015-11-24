@@ -25,31 +25,37 @@ if [ "$#" -eq "0" ];then
 fi
 
 if [ "$1" = '--init' ]; then
-        for (( i=0; i<${#pkgs[@]}; i++ ))
-        do
-          apt-get -y install ${pkgs[$i]}
-        done
+  for (( i=0; i<${#pkgs[@]}; i++ ))
+  do
+    apt-get -y install ${pkgs[$i]}
+  done
 
-        # ここにmy.cnfがあると設定がうまくいかないので削除
-        rm /etc/mysql/my.cnf
+  # ここにmy.cnfがあると設定がうまくいかないので削除
+  rm /etc/mysql/my.cnf
 
-        wget $mysql_dl_url -O $mysql_src_path/$mysql_dl_file
+  wget $mysql_dl_url -O $mysql_src_path/$mysql_dl_file
   cd $mysql_src_path
-        tar xfz $mysql_src_path/$mysql_dl_file
-        cd $mysql_dir_name
-        cmake -DCMAKE_INSTALL_PREFIX=$mysql_install_path -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_INNOBASE_STORAGE_ENGINE=1 -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/tmp/boost
-        make
-        make install || echo "Install failed!!" && exit 1
+  tar xfz $mysql_src_path/$mysql_dl_file
+  cd $mysql_dir_name
+  cmake -DCMAKE_INSTALL_PREFIX=$mysql_install_path -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_INNOBASE_STORAGE_ENGINE=1 -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/tmp/boost
+  make
+  make install
+        
+  if[ $# -ne 0 ];then
+    do
+      echo "Install failed!!"
+      exit 1
+    done
 
   # add unix user
-        useradd mysql -s /bin/false
-        chown -R mysql:mysql $mysql_install_path
+  useradd mysql -s /bin/false
+  chown -R mysql:mysql $mysql_install_path
 
-        chmod 744 /etc/init.d/mysqld
-        $mysql_install_path/bin/mysqld --datadir=/usr/local/mysql/data --basedir=/usr/local/mysql --user=mysql --log-error-verbosity=3 --initialize-insecure
+  chmod 744 /etc/init.d/mysqld
+  $mysql_install_path/bin/mysqld --datadir=/usr/local/mysql/data --basedir=/usr/local/mysql --user=mysql --log-error-verbosity=3 --initialize-insecure
 
-        # 自動起動登録
-        systemctl enable mysql
-        systemctl start mysql
+  # 自動起動登録
+  systemctl enable mysql
+  systemctl start mysql
 
 fi
