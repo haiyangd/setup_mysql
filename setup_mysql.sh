@@ -12,7 +12,7 @@ pkgs=(
 
 mysql_dir_name='mysql-5.7.9'
 mysql_dl_file=$mysql_dir_name'.tar.gz'
-mysql_dl_url='http://dev.mysql.com/get/Downloads/MySQL-5.5/'$mysql_dl_file'/from/http://ftp.iij.ad.jp/pub/db/mysql/'
+mysql_dl_url='http://dev.mysql.com/get/Downloads/MySQL-5.7/'$mysql_dl_file'/from/http://ftp.iij.ad.jp/pub/db/mysql/'
 mysql_src_path='/usr/local/src'
 mysql_install_path='/usr/local/mysql'
 
