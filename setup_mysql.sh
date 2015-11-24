@@ -8,7 +8,7 @@ pkgs=(
         'g++'
         'libncurses5-dev'
         'bison'
-        )
+)
 
 mysql_dir_name='mysql-5.7.9'
 mysql_dl_file=$mysql_dir_name'.tar.gz'
@@ -41,11 +41,12 @@ if [ "$1" = '--init' ]; then
   make
   make install
         
-  if[ $# -ne 0 ];then
+  if [ $? -ne 0 ];then
     do
       echo "Install failed!!"
       exit 1
     done
+  fi
 
   # add unix user
   useradd mysql -s /bin/false
