@@ -42,10 +42,8 @@ if [ "$1" = '--init' ]; then
   make install
         
   if [ $? -ne 0 ];then
-    do
-      echo "Install failed!!"
-      exit 1
-    done
+    echo "Install failed!!"
+    exit 1
   fi
 
   # add unix user
