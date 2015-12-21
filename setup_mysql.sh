@@ -50,6 +50,7 @@ if [ "$1" = '--init' ]; then
   useradd mysql -s /bin/false
   chown -R mysql:mysql $mysql_install_path
 
+  cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld
   chmod 744 /etc/init.d/mysqld
   $mysql_install_path/bin/mysqld --datadir=/usr/local/mysql/data --basedir=/usr/local/mysql --user=mysql --log-error-verbosity=3 --initialize-insecure
 
