@@ -52,6 +52,13 @@ if [ "$1" = '--init' ]; then
 
   cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld
   chmod 744 /etc/init.d/mysqld
+  touch /etc/my.cnf
+  cat <<EOF > /etc/my.cnf
+[mysqld]
+socket=/var/run/mysqld/mysqld.sock
+[client]
+socket=/var/run/mysqld/mysqld.sock
+EOF
   $mysql_install_path/bin/mysqld --datadir=/usr/local/mysql/data --basedir=/usr/local/mysql --user=mysql --log-error-verbosity=3 --initialize-insecure
 
   # 自動起動登録
