@@ -1,6 +1,10 @@
 #!/bin/bash
 
 pkgs=(
+        'make'
+        'cmake'
+        'libc-dev'
+        'libc6-dev'
         'libncursesw5-dev'
         'mysql-client'
         'cmake'
@@ -25,6 +29,7 @@ if [ "$#" -eq "0" ];then
 fi
 
 if [ "$1" = '--init' ]; then
+  apt-get update
   for (( i=0; i<${#pkgs[@]}; i++ ))
   do
     apt-get -y install ${pkgs[$i]}
