@@ -6,7 +6,6 @@ pkgs=(
         'libc-dev'
         'libc6-dev'
         'libncursesw5-dev'
-        'mysql-client'
         'cmake'
         'libnagios-plugin-perl'
         'g++'
@@ -14,7 +13,7 @@ pkgs=(
         'bison'
 )
 
-mysql_dir_name='mysql-5.7.9'
+mysql_dir_name='mysql-5.7.10'
 mysql_dl_file=$mysql_dir_name'.tar.gz'
 mysql_dl_url='http://dev.mysql.com/get/Downloads/MySQL-5.7/'$mysql_dl_file'/from/http://ftp.iij.ad.jp/pub/db/mysql/'
 mysql_src_path='/usr/local/src'
