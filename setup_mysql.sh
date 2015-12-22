@@ -24,11 +24,12 @@ db_user=''
 db_name=''
 
 if [ "$#" -eq "0" ];then
-  echo "usage: $0 --init"
+  echo "usage: $0 --install"
+  echo "usage: $0 --initialize"
   exit 0
 fi
 
-if [ "$1" = '--init' ]; then
+if [ "$1" = '--install' ]; then
   apt-get update
   for (( i=0; i<${#pkgs[@]}; i++ ))
   do
@@ -45,12 +46,16 @@ if [ "$1" = '--init' ]; then
   cmake -DCMAKE_INSTALL_PREFIX=$mysql_install_path -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_INNOBASE_STORAGE_ENGINE=1 -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/tmp/boost
   make
   make install
-        
+
   if [ $? -ne 0 ];then
     echo "Install failed!!"
     exit 1
+  else
+    echo "Install success!!"
   fi
 
+elif [ "$1" = '--initialize' ]; then
+  
   # add unix user
   useradd mysql -s /bin/false
   chown -R mysql:mysql $mysql_install_path
