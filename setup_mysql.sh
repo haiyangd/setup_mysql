@@ -71,7 +71,7 @@ EOF
   $mysql_install_path/bin/mysqld --datadir=/usr/local/mysql/data --basedir=/usr/local/mysql --user=mysql --log-error-verbosity=3 --initialize-insecure
 
   # 自動起動登録
-  systemctl enable mysql
-  systemctl start mysql
+  systemctl enable mysqld
+  systemctl start mysqld
 
 fi
